@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
+import './Feed.css'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
@@ -47,7 +48,7 @@ const Feed = ({ navigate }) => {
       return(
         <>
           <h2>Posts</h2>
-            <button onClick={logout}>
+            <button className="move-right" onClick={logout}>
               Logout
             </button>
             <form onSubmit={handleSubmit}>

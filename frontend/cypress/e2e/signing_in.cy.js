@@ -1,7 +1,7 @@
 describe("Signing in", () => {
 
   before(() => {
-    cy.signup("user@email.com", "12345678")
+    cy.signup("user@email.com", "12345678", "name")
   })
 
   it("with valid credentials, redirects to '/posts'", () => {
@@ -28,4 +28,11 @@ describe("Signing in", () => {
 
     cy.url().should("include", "/login");
   });
+
+  it('redirects to /signup when sign up button is clicked',()=>{
+    cy.visit('/login')
+    cy.get("#signup").should('exist')
+    cy.get("#signup").click()
+    cy.url().should('include','/signup')
+  })
 });
