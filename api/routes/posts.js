@@ -5,5 +5,6 @@ const PostsController = require("../controllers/posts");
 
 router.get("/", PostsController.Index);
 router.post("/", PostsController.Create);
+router.get("/:postID", PostsController.FindById);
 
 module.exports = router;
