@@ -1,27 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import Post from '../post/Post';
 import {useParams} from 'react-router-dom';
 
 const PostById = ({ navigate }) => {
-  const {postID} = useParams();
+  const {postId} = useParams();
   const [post, setPost] = useState({});
   const [token, setToken] = useState(window.localStorage.getItem("token"));
 
-  const handleOnClick = async (event) => {
-    event.preventDefault();
-
-    await fetch('/posts/:postID', {
-      method: 'get',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,    
-      },
-      body: JSON.stringify({message: post}),
-    });
-
-  }
-  /*useEffect(() => {
+  useEffect(() => {
     if (token) {
-      fetch(`/posts/${postID}`, {
+      fetch(`/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         }
@@ -36,14 +24,13 @@ const PostById = ({ navigate }) => {
           console.log("Error fetching post:", error);
         });
     }
-  }, [postID, token]);
+  }, [postId, token]);
 
   return (
     <div>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
+      <Post post={post} />
     </div>
-  );*/
+  );
 };
 
 export default PostById;
