@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
+import Navbar from '../navbar/Navbar';
 import './Feed.css'
 import {Link} from 'react-router-dom'
 
-const Feed = ({ navigate }) => {
+const Feed = ({ navigate,userData,storeUserData }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newPost, setNewPost] = useState("");
@@ -39,16 +40,12 @@ const Feed = ({ navigate }) => {
     navigate(0);
   };
 
-  const logout = () => {
-    window.localStorage.removeItem("token");
-    navigate("/login");
-  };
 
   if (token) {
     return (
       <>
+        <Navbar navigate={navigate} userData={userData} storeUserData={storeUserData}/>
         <h2>Posts</h2>
-        <button className="move-right" onClick={logout}>Logout</button>
         <form onSubmit={handleSubmit}>
           <label>
             Add a new post:
@@ -75,6 +72,24 @@ const Feed = ({ navigate }) => {
   } else {
     navigate("/signin");
   }
+  
+    if(token) {
+      return(
+        <>
+          <h2>Posts</h2>
+            <button className="move-right" onClick={logout}>
+              Logout
+            </button>
+          <div id='feed' role="feed">
+              {posts.map(
+                (post) => ( <Post post={ post } key={ post._id } /> )
+              )}
+          </div>
+        </>
+      )
+    } else {
+      navigate('/signin')
+    }
 }
 
 export default Feed;
