@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import Post from '../post/Post'
-import './Feed.css'
+import React, { useEffect, useState } from "react";
+import Post from "../post/Post";
+import { useParams } from "react-router-dom";
 
 const PostById = ({ navigate }) => {
-    const [post, setPost] = useState("");
-    const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const [post, setPost] = useState({});
+  const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const { postId } = useParams();
 
-useEffect(() => {
+  useEffect(() => {
     if (token) {
-      fetch("/posts/:postID", {
+      fetch(`/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -17,8 +18,12 @@ useEffect(() => {
         .then(async (data) => {
           window.localStorage.setItem("token", data.token);
           setToken(window.localStorage.getItem("token"));
-          setPosts(data.posts);
+          setPost(data.post);
         });
     }
   }, []);
-}
+
+  return <Post post={post} />;
+};
+
+export default PostById;
