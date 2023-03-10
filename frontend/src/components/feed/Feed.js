@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Post from '../post/Post'
 import './Feed.css'
+import PostById from '../postById/PostById'
+import {Link} from 'react-router-dom'
 
 const Feed = ({ navigate }) => {
   const [posts, setPosts] = useState([]);
@@ -64,7 +66,9 @@ const Feed = ({ navigate }) => {
         </form>
         <div id="feed" role="feed">
           {[...posts].reverse().map((post) => (
-            <Post post={post} key={post._id} />
+            <Link to = {`/posts/${post._id}`} key={post._id}>
+            <Post post={post}/>
+            </Link>
           ))}
         </div>
       </>
