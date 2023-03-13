@@ -63,3 +63,6 @@ typings/
 # cypress.io
 cypress/screenshots
 cypress/videos
+
+# to do list
+X_adding_user_to_post
