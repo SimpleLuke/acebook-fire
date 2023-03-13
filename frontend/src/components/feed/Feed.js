@@ -21,6 +21,7 @@ const Feed = ({ navigate,userData,storeUserData }) => {
           setToken(window.localStorage.getItem("token"));
           setPosts(data.posts);
         });
+        navigate("/posts");
     }else{
       navigate("/login");
     }
