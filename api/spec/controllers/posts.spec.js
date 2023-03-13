@@ -127,7 +127,7 @@ describe("/posts", () => {
   })
 
   describe("GET, when token is present", () => {
-    test("returns post from collection using its ID", async () => {
+    test("returns post from collection using its Id", async () => {
       let post1 = new Post({_id: "640607135951c113df39ac32", message: "howdy!"});
       let post2 = new Post({_id: "640607135951c113df39ac58", message: "hola!"});
       await post1.save();

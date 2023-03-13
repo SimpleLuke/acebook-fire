@@ -25,7 +25,7 @@ const PostsController = {
 
   FindById: (req, res) => {
 
-    Post.findOne({_id: req.params.postID}, async (err, post) => {
+    Post.findOne({_id: req.params.postId}, async (err, post) => {
       if (err) {
         throw err;
       }
