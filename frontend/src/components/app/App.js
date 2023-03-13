@@ -34,7 +34,7 @@ const App = () => {
         }
       />
       <Route path="/signup" element={<SignUpForm navigate={useNavigate()} />} />
-          <Route path="/posts/:postId" element={<PostById navigate={ useNavigate() }/>}/>
+      <Route path="/posts/:postId" element={<PostById navigate={ useNavigate() }/>}/>
     </Routes> 
   );
 };

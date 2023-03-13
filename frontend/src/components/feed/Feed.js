@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import Post from '../post/Post'
 import Navbar from '../navbar/Navbar';
 import './Feed.css'
@@ -71,11 +70,11 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         </form>
         <div id="feed" role="feed">
           {[...posts].reverse().map((post) => (
-            <BrowserRouter>
+            
             <Link to = {`/posts/${post._id}`} key={post._id}>
-            <Post post={post}/>
+              <Post post={post}/>
             </Link>
-            </BrowserRouter>
+            
           ))}
         </div>
       </>
