@@ -18,6 +18,7 @@ describe('redirect', () => {
     cy.visit("/");
     cy.wait(1000);
     cy.url().should('include', '/posts');
+    cy.get('[data-cy="logoutButton"]').click();
   })
 
   it('redirects to posts page if logged in and tries to access login route', () => {
