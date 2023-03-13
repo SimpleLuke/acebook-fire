@@ -31,7 +31,7 @@ const Feed = ({ navigate }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message: newPost }),
+      body: JSON.stringify({ message: newPost, firstName: window.localStorage.getItem("firstName"), lastName: window.localStorage.getItem("lastName")}),
     });
     setPosts([...posts, newPost]);
     setNewPost("");
@@ -64,32 +64,14 @@ const Feed = ({ navigate }) => {
         </form>
         <div id="feed" role="feed">
           {[...posts].reverse().map((post) => (
-            <Post post={post} key={post._id} />
+            <Post post={post} key={post._id}/>
           ))}
         </div>
+        
       </>
     );
   } else {
     navigate("/signin");
-  }
-  
-    if(token) {
-      return(
-        <>
-          <h2>Posts</h2>
-            <button className="move-right" onClick={logout}>
-              Logout
-            </button>
-          <div id='feed' role="feed">
-              {posts.map(
-                (post) => ( <Post post={ post } key={ post._id } /> )
-              )}
-          </div>
-        </>
-      )
-    } else {
-      navigate('/signin')
-    }
-}
+}}
 
 export default Feed;

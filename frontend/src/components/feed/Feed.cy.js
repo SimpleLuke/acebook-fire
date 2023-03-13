@@ -10,8 +10,8 @@ describe("Feed", () => {
         statusCode: 200,
         body: {
           posts: [
-            { _id: 1, message: "Hello, world" },
-            { _id: 2, message: "Hello again, world" },
+            { _id: 1, message: "Hello, world", createdAt: "2023-03-09T16:44:33.461Z"},
+            { _id: 2, message: "Hello again, world", createdAt: "2023-03-09T16:44:33.461Z" },
           ],
         },
       });
@@ -29,9 +29,13 @@ describe("Feed", () => {
   it("sends a post request to /posts and response a OK message", () => {
     window.localStorage.setItem("token", "fakeToken");
 
-    cy.intercept("POST", "/posts", { message: "OK" }).as("newPostRequest");
-    cy.mount(<Feed navigate={navigate} />);
+    // const post = {
+    //   message: "OK",
+    //   createdAt: "2023-03-09T16:44:33.461Z"
+    // };
+    cy.intercept("POST", "/posts", {message: "OK"}).as("newPostRequest");
 
+    cy.mount(<Feed navigate={navigate} />);
     cy.get('input[data-cy="post-input"]').should("exist");
     cy.get('input[data-cy="post-input"]').type("This is a new post");
     cy.get('button[data-cy="form-submit"]').should("exist");
@@ -42,3 +46,6 @@ describe("Feed", () => {
       .should("equal", "OK");
   });
 });
+
+// cy.intercept("POST", "/posts", { message: "OK"}).as("newPostRequest");
+// cy.mount(<Feed navigate={navigate} />);

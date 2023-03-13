@@ -7,6 +7,20 @@ const LogInForm = ({ navigate }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+
+
+    // const users = await fetch(`/users?email=${email}`, {
+    //   method: 'get',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   }
+    // });
+    
+    // const user = await users.json();
+    
+    // const firstName = user.firstName;
+    
+
     let response = await fetch( '/tokens', {
       method: 'post',
       headers: {
@@ -15,13 +29,18 @@ const LogInForm = ({ navigate }) => {
       body: JSON.stringify({ email: email, password: password })
     })
 
+
+
     if(response.status !== 201) {
       console.log("yay")
       navigate('/login')
     } else {
       console.log("oop")
       let data = await response.json()
-      window.localStorage.setItem("token", data.token)
+      window.localStorage.setItem("token", data.token);
+      window.localStorage.setItem("firstName", data.firstName);
+      window.localStorage.setItem("lastName", data.lastName);
+      console.log()
       navigate('/posts');
     }
   }
