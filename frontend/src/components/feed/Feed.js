@@ -1,27 +1,31 @@
-import React, { useEffect, useState } from 'react';
-import Post from '../post/Post'
-import Navbar from '../navbar/Navbar';
-import './Feed.css'
+import React, { useEffect, useState } from "react";
+import Post from "../post/Post";
+import Navbar from "../navbar/Navbar";
+import "./Feed.css";
 
-const Feed = ({ navigate,userData,storeUserData }) => {
+const Feed = ({ navigate, userData, storeUserData }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newPost, setNewPost] = useState("");
 
+  const fetchPosts = () => {
+    fetch("/posts", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        window.localStorage.setItem("token", data.token);
+        setToken(window.localStorage.getItem("token"));
+        setPosts(data.posts);
+      });
+  };
+
   useEffect(() => {
     if (token) {
-      fetch("/posts", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-        .then((response) => response.json())
-        .then(async (data) => {
-          window.localStorage.setItem("token", data.token);
-          setToken(window.localStorage.getItem("token"));
-          setPosts(data.posts);
-        });
-    }else{
+      fetchPosts();
+    } else {
       navigate("/login");
     }
   }, []);
@@ -36,16 +40,18 @@ const Feed = ({ navigate,userData,storeUserData }) => {
       },
       body: JSON.stringify({ message: newPost }),
     });
-    setPosts([...posts, newPost]);
     setNewPost("");
-    navigate(0);
+    fetchPosts();
   };
-
 
   if (token) {
     return (
       <>
-        <Navbar navigate={navigate} userData={userData} storeUserData={storeUserData}/>
+        <Navbar
+          navigate={navigate}
+          userData={userData}
+          storeUserData={storeUserData}
+        />
         <h2>Posts</h2>
         <form onSubmit={handleSubmit}>
           <label>
@@ -68,8 +74,7 @@ const Feed = ({ navigate,userData,storeUserData }) => {
         </div>
       </>
     );
-  } 
-  
-}
+  }
+};
 
 export default Feed;

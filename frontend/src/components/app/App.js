@@ -11,7 +11,9 @@ import {
 } from "react-router-dom";
 
 const App = () => {
-  const [userData,setUserData] = useState(null)
+  const [userData, setUserData] = useState(
+    JSON.parse(window.localStorage.getItem("userData"))
+  );
     return (
         <Routes>
           <Route path='/' element={<Home navigate={ useNavigate() } />} />
