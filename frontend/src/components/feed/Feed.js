@@ -25,6 +25,8 @@ const Feed = ({ navigate, userData, storeUserData }) => {
   useEffect(() => {
     if (token) {
       fetchPosts();
+    } else {
+      navigate('/login');
     }
   }, []);
 
@@ -72,9 +74,10 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         </div>
       </>
     );
-  } else {
-    navigate("/signin");
-  }
-};
+
+  } 
+  
+}
+
 
 export default Feed;
