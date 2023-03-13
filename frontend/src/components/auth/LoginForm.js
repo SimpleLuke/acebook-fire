@@ -5,7 +5,10 @@ const LogInForm = ({ navigate, storeUserData }) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (window.localStorage.getItem("token")) {
+    if (
+      window.localStorage.getItem("token") &&
+      window.localStorage.getItem("token") !== "undefined"
+    ) {
       navigate("/posts");
     }
   }, []);

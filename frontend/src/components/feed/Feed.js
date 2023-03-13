@@ -23,7 +23,10 @@ const Feed = ({ navigate, userData, storeUserData }) => {
   };
 
   useEffect(() => {
-    if (token) {
+    if (
+      window.localStorage.getItem("token") &&
+      window.localStorage.getItem("token") !== "undefined"
+    ) {
       fetchPosts();
     } else {
       navigate("/login");
