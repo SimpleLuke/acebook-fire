@@ -26,7 +26,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
     if (token) {
       fetchPosts();
     } else {
-      navigate('/login');
+      navigate("/login");
     }
   }, []);
 
@@ -74,10 +74,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         </div>
       </>
     );
-
-  } 
-  
-}
-
+  }
+};
 
 export default Feed;
