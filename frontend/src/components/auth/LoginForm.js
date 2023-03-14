@@ -33,7 +33,6 @@ const LogInForm = ({ navigate, storeUserData }) => {
       storeUserData(data.user);
       window.localStorage.setItem("userData", JSON.stringify(data.user));
       navigate("/posts");
-      window.location.reload();
     }
   };
 
