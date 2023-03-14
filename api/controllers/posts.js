@@ -4,12 +4,12 @@ const express = require("express");
 const multer = require("multer");
 const upload = multer({ dest: "uploads/" });
 
-const app = express();
-
 const PostsController = {
   Index: (req, res) => {
     Post.find(async (err, posts) => {
       if (err) {
+        console.log(req);
+        console.log(err);
         throw err;
       }
       const token = await TokenGenerator.jsonwebtoken(req.user_id);
@@ -23,8 +23,12 @@ const PostsController = {
         throw err;
       }
     });
-    post.image = req.file.filename;
-    const post = new Post(req.body);
+    const post = new Post({
+      message: req.body.message,
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      image: req.file.filename,
+    });
     post.save(async (err) => {
       if (err) {
         throw err;
