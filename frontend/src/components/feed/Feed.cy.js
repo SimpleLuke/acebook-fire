@@ -38,7 +38,6 @@ describe("Feed", () => {
     cy.get('input[data-cy="post-input"]').type("This is a new post");
     cy.get('button[data-cy="form-submit"]').should("exist");
     cy.get('button[data-cy="form-submit"]').click();
-    //cy.wait(1000); (we do not need this as it passes without it, the .as becomes our reference in cy.wait(@newPostRequest))
     cy.wait("@newPostRequest")
       .its("response.body.message")
       .should("equal", "OK");

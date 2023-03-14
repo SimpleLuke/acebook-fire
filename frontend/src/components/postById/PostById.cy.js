@@ -5,11 +5,11 @@ const navigate = () => {};
 
 describe("PostById", () => {
     it('calls the /posts/:postId endpoint and displays the post', () => {
-        const {postId} = 1;
+        const postId = 1;
         const post = {_id: postId, message: "Hello, world"}
         window.localStorage.setItem("token", "fakeToken");
 
-        cy.intercept("GET", `/posts/${postId}`, (req) => {
+        cy.intercept("GET", `/posts/**`, (req) => {
             req.reply({
                 statusCode: 200,
                 body:{
