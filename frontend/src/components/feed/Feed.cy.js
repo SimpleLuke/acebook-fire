@@ -1,4 +1,6 @@
 import Feed from "./Feed";
+import { BrowserRouter } from 'react-router-dom';
+
 const navigate = () => {};
 
 describe("Feed", () => {
@@ -17,13 +19,13 @@ describe("Feed", () => {
       });
     }).as("getPosts");
 
-    cy.mount(<Feed navigate={navigate} />);
+    cy.mount(<BrowserRouter><Feed navigate={navigate} /></BrowserRouter>);
 
     cy.wait("@getPosts").then(() => {
       cy.get('[data-cy="post"]')
         .should("contain.text", "Hello, world")
         .and("contain.text", "Hello again, world");
-    });
+   });
   });
 
   it("sends a post request to /posts and response a OK message", () => {
@@ -36,7 +38,6 @@ describe("Feed", () => {
     cy.get('input[data-cy="post-input"]').type("This is a new post");
     cy.get('button[data-cy="form-submit"]').should("exist");
     cy.get('button[data-cy="form-submit"]').click();
-    cy.wait(1000);
     cy.wait("@newPostRequest")
       .its("response.body.message")
       .should("equal", "OK");
