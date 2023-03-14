@@ -6,7 +6,6 @@ import "./Feed.css";
 const Feed = ({ navigate, userData, storeUserData}) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const user = useState(JSON.parse(window.localStorage.getItem("userData")));
   const [newPost, setNewPost] = useState("");
   
 
@@ -25,7 +24,7 @@ const Feed = ({ navigate, userData, storeUserData}) => {
   };
 
   useEffect(() => {
-    if (token) {
+    if (window.localStorage.getItem("token") && window.localStorage.getItem("token") !== "undefined") {
       fetchPosts();
     } else {
       navigate('/login');
@@ -40,7 +39,8 @@ const Feed = ({ navigate, userData, storeUserData}) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message: newPost, firstName: userData.firstName, lastName: userData.lastName})
+      // body: JSON.stringify({ message: newPost, firstName: userData.firstName, lastName: userData.lastName})
+       body: JSON.stringify({ message: newPost})
     });
     setNewPost("");
     fetchPosts();
