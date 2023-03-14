@@ -8,6 +8,7 @@ const Post = ({post}) => {
     if (clicked) {
       setLikeCount(likeCount - 1);
     } else {
+    
       setLikeCount(likeCount + 1);
     }
     setClicked(!clicked);

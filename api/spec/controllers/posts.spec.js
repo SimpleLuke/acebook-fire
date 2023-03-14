@@ -126,6 +126,30 @@ describe("/posts", () => {
     })
   })
 
+  describe("GET, when token is present", () => {
+    test("returns post from collection using its Id", async () => {
+      let post1 = new Post({_id: "640607135951c113df39ac32", message: "howdy!"});
+      let post2 = new Post({_id: "640607135951c113df39ac58", message: "hola!"});
+      await post1.save();
+      await post2.save();
+      let response1 = await request(app)
+        .get("/posts/640607135951c113df39ac32")
+        .set("Authorization", `Bearer ${token}`)
+        
+
+      expect(response1.status).toBe(200)
+      expect(post1.message).toEqual("howdy!");
+      
+      let response2 = await request(app)
+        .get("/posts/640607135951c113df39ac58")
+        .set("Authorization", `Bearer ${token}`)
+       
+
+      expect(response2.status).toBe(200);
+      expect(post2.message).toEqual("hola!");
+    })
+  })
+
   describe("GET, when token is missing", () => {
     test("returns no posts", async () => {
       let post1 = new Post({message: "howdy!"});

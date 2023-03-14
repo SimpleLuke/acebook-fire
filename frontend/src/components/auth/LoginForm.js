@@ -5,7 +5,10 @@ const LogInForm = ({ navigate, storeUserData }) => {
   const [password, setPassword] = useState("");
 
   useEffect(() => {
-    if (window.localStorage.getItem("token")) {
+    if (
+      window.localStorage.getItem("token") &&
+      window.localStorage.getItem("token") !== "undefined"
+    ) {
       navigate("/posts");
     }
   }, []);
@@ -18,8 +21,10 @@ const LogInForm = ({ navigate, storeUserData }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password }),
-    });
+      body: JSON.stringify({ email: email, password: password })
+    })
+
+
 
     if (response.status !== 201) {
       console.log("yay");
