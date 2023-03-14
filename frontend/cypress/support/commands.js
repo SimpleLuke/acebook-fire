@@ -18,6 +18,11 @@ Cypress.Commands.add("signup", (firstName, lastName, email, password) => {
   cy.get("#password").type(password);
   cy.get("#submit").click();
 });
+
+Cypress.Commands.add("logout", () => {
+  cy.visit("/posts");
+  cy.get("[data-cy='logoutButton']").click();
+});
 //
 //
 // -- This is a child command --
