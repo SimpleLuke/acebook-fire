@@ -4,6 +4,9 @@ import SignUpForm from '../user/SignUpForm'
 import PostById from '../postById/PostById';
 import React, { useState } from 'react';
 import Feed from '../feed/Feed'
+import Home from '../home/Home'
+
+
 import {
   useNavigate,
   Routes,
@@ -17,6 +20,7 @@ const App = () => {
 
   return (
     <Routes>
+    <Route path='/' element={<Home navigate={ useNavigate() } />} />
       <Route
         path="/posts"
         element={
@@ -38,6 +42,7 @@ const App = () => {
     </Routes> 
   );
 };
+
 
 
 export default App;
