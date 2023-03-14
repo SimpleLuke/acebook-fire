@@ -4,7 +4,7 @@ import Post from "../post/Post";
 
 const PostById = ({ navigate }) => {
   const {postId} = useParams();
-  const [post, setPost] = useState({});
+  const [post, setPost] = useState(null);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   
   useEffect(() => {
@@ -27,7 +27,7 @@ const PostById = ({ navigate }) => {
   }, [postId, token]);
   return (
     <div>
-     <Post post={post} />
+     {post && <Post post={post} />}
     </div>
   );
 };

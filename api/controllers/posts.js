@@ -33,6 +33,20 @@ const PostsController = {
       res.status(200).json({ post: post, token: token });
     });
   },
+
+  GetLikesByPost: (req, res) => {
+    console.log("LOGGGGG",req.params.postId)
+    Post.findById(req.params.postId)
+      .populate('likes')
+      .exec((err, post) => {
+        if (err) {
+          throw err;
+        }
+        const token =  TokenGenerator.jsonwebtoken(req.user_id)
+        res.status(200).json({ post: post, token: token });
+      });
+      
+  }
 };
 
 module.exports = PostsController;
