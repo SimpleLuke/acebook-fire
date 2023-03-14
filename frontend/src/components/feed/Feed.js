@@ -77,9 +77,7 @@ const Feed = ({ navigate, userData, storeUserData}) => {
         
       </>
     );
-
   } 
-  
 }
 
 
