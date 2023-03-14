@@ -21,8 +21,10 @@ const LogInForm = ({ navigate, storeUserData }) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password }),
-    });
+      body: JSON.stringify({ email: email, password: password })
+    })
+
+
 
     if (response.status !== 201) {
       console.log("yay");

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import Post from '../post/Post'
-import Navbar from '../navbar/Navbar';
-import './Feed.css'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import Post from "../post/Post";
+import Navbar from "../navbar/Navbar";
+import "./Feed.css";
+import { Link } from "react-router-dom";
 
 const Feed = ({ navigate, userData, storeUserData }) => {
   const [posts, setPosts] = useState([]);
@@ -42,7 +42,12 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message: newPost }),
+      body: JSON.stringify({
+        message: newPost,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+      }),
+      //  body: JSON.stringify({ message: newPost})
     });
     setNewPost("");
     fetchPosts();
@@ -73,11 +78,9 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         </form>
         <div id="feed" role="feed">
           {[...posts].reverse().map((post) => (
-            
-            <Link to = {`/posts/${post._id}`} key={post._id}>
-              <Post post={post}/>
+            <Link to={`/posts/${post._id}`} key={post._id}>
+              <Post post={post} />
             </Link>
-            
           ))}
         </div>
       </>
