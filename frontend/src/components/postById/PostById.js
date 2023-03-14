@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import Post from "../post/Post";
-import Navbar from '../navbar/Navbar';
+import Comments from '../comments/Comments'
+import Navbar from "../navbar/Navbar";
+
+
 
 const PostById = ({ navigate, userData, storeUserData }) => {
   const {postId} = useParams();
@@ -29,12 +32,14 @@ const PostById = ({ navigate, userData, storeUserData }) => {
   return (
     <>
     <Navbar
-          navigate={navigate}
-          userData={userData}
-          storeUserData={storeUserData}
-        />
+      navigate={navigate}
+      userData={userData}
+      storeUserData={storeUserData}
+    />
     <div>
      <Post post={post} />
+     -------------------------
+     <Comments post={post} />
     </div>
     </>
   );
