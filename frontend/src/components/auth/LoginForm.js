@@ -30,7 +30,6 @@ const LogInForm = ({ navigate, storeUserData }) => {
       console.log("oop");
       let data = await response.json();
       window.localStorage.setItem("token", data.token);
-      // storeUserData(data.user);
       window.localStorage.setItem("userData", JSON.stringify(data.user));
       navigate("/posts");
       window.location.reload();
