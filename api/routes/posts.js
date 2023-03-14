@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
 
 const PostsController = require("../controllers/posts");
 
 router.get("/", PostsController.Index);
-router.post("/", PostsController.Create);
+router.post("/", upload.array("image", 3), PostsController.Create);
 router.get("/:postId", PostsController.FindById);
-router.post("/photos", PostsController.UploadPhoto);
 
 module.exports = router;

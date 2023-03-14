@@ -1,8 +1,9 @@
 const Post = require("../models/post");
 const TokenGenerator = require("../models/token_generator");
-const multer = require("multer");
-const Upload = multer({ dest: "uploads/" });
 const express = require("express");
+const multer = require("multer");
+const upload = multer({ dest: "uploads/" });
+
 const app = express();
 
 const PostsController = {
@@ -15,7 +16,14 @@ const PostsController = {
       res.status(200).json({ posts: posts, token: token });
     });
   },
+
   Create: (req, res) => {
+    upload.single("image")(req, res, (err) => {
+      if (err) {
+        throw err;
+      }
+    });
+    post.image = req.file.filename;
     const post = new Post(req.body);
     post.save(async (err) => {
       if (err) {
@@ -36,12 +44,6 @@ const PostsController = {
       res.status(200).json({ post: post, token: token });
     });
   },
-
-  UploadPhoto: {
-    app.post('/photos', upload.array('photos', 3), function (req, res) {
-      res.send({code: 200, message: success})
-    })
-  }
 };
 
 module.exports = PostsController;
