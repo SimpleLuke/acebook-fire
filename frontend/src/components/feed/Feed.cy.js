@@ -42,6 +42,3 @@ describe("Feed", () => {
       .should("equal", "OK");
   });
 });
-
-// cy.intercept("POST", "/posts", { message: "OK"}).as("newPostRequest");
-// cy.mount(<Feed navigate={navigate} />);
