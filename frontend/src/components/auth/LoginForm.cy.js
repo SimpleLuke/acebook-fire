@@ -20,3 +20,4 @@ describe("Logging in", () => {
     cy.get("#submit").should('exist')
   })
 })
+

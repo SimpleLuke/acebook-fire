@@ -11,6 +11,19 @@ const UsersController = {
       }
     });
   },
+  GetUser: async (req, res) => {
+    try {
+      const email = req.query.email;
+      const user = await User.findOne({ email: email });
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      res.json(user.firstName);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  }
 };
 
 module.exports = UsersController;
