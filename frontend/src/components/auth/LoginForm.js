@@ -29,11 +29,11 @@ const LogInForm = ({ navigate, storeUserData }) => {
     } else {
       console.log("oop");
       let data = await response.json();
-      console.log(data)
       window.localStorage.setItem("token", data.token);
       // storeUserData(data.user);
       window.localStorage.setItem("userData", JSON.stringify(data.user));
       navigate("/posts");
+      window.location.reload();
     }
   };
 

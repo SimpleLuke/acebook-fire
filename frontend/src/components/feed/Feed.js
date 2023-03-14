@@ -39,8 +39,8 @@ const Feed = ({ navigate, userData, storeUserData}) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      // body: JSON.stringify({ message: newPost, firstName: userData.firstName, lastName: userData.lastName})
-       body: JSON.stringify({ message: newPost})
+      body: JSON.stringify({ message: newPost, firstName: userData.firstName, lastName: userData.lastName})
+      //  body: JSON.stringify({ message: newPost})
     });
     setNewPost("");
     fetchPosts();
