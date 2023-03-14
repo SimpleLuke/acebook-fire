@@ -3,10 +3,12 @@ import Post from "../post/Post";
 import Navbar from "../navbar/Navbar";
 import "./Feed.css";
 
-const Feed = ({ navigate, userData, storeUserData }) => {
+const Feed = ({ navigate, userData, storeUserData}) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
+  const user = useState(JSON.parse(window.localStorage.getItem("userData")));
   const [newPost, setNewPost] = useState("");
+  
 
   const fetchPosts = () => {
     fetch("/posts", {
@@ -26,9 +28,9 @@ const Feed = ({ navigate, userData, storeUserData }) => {
     if (token) {
       fetchPosts();
     } else {
-      navigate("/login");
+      navigate('/login');
     }
-  }, []);
+  },[]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -38,7 +40,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message: newPost, firstName: window.localStorage.getItem("firstName"), lastName: window.localStorage.getItem("lastName")}),
+      body: JSON.stringify({ message: newPost, firstName: userData.firstName, lastName: userData.lastName})
     });
     setNewPost("");
     fetchPosts();
@@ -75,7 +77,10 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         
       </>
     );
-  }
-};
+
+  } 
+  
+}
+
 
 export default Feed;
