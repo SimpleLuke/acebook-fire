@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import Post from "../post/Post";
 import Navbar from "../navbar/Navbar";
 import "./Feed.css";
+import { Link } from "react-router-dom";
 
-const Feed = ({ navigate, userData, storeUserData}) => {
+const Feed = ({ navigate, userData, storeUserData }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newPost, setNewPost] = useState("");
-  
 
   const fetchPosts = () => {
     fetch("/posts", {
@@ -24,12 +24,15 @@ const Feed = ({ navigate, userData, storeUserData}) => {
   };
 
   useEffect(() => {
-    if (window.localStorage.getItem("token") && window.localStorage.getItem("token") !== "undefined") {
+    if (
+      window.localStorage.getItem("token") &&
+      window.localStorage.getItem("token") !== "undefined"
+    ) {
       fetchPosts();
     } else {
-      navigate('/login');
+      navigate("/login");
     }
-  },[]);
+  }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -39,7 +42,11 @@ const Feed = ({ navigate, userData, storeUserData}) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({ message: newPost, firstName: userData.firstName, lastName: userData.lastName})
+      body: JSON.stringify({
+        message: newPost,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+      }),
       //  body: JSON.stringify({ message: newPost})
     });
     setNewPost("");
@@ -71,16 +78,14 @@ const Feed = ({ navigate, userData, storeUserData}) => {
         </form>
         <div id="feed" role="feed">
           {[...posts].reverse().map((post) => (
-            <Post post={post} key={post._id}/>
+            <Link to={`/posts/${post._id}`} key={post._id}>
+              <Post post={post} />
+            </Link>
           ))}
         </div>
-        
       </>
     );
-
-  } 
-  
-}
-
+  }
+};
 
 export default Feed;
