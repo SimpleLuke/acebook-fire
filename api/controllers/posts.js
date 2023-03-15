@@ -77,6 +77,24 @@ const PostsController = {
       const token =  TokenGenerator.jsonwebtoken(req.user_id)
       res.status(201).json({ message: 'OK', token: token });
     });
+  },
+
+  CheckLikeByPost: async(req,res)=>{
+    let isLike;
+    const post = await Post.findById(req.params.postId);
+    if (post.likes.includes(mongoose.Types.ObjectId(req.body.user_id))) {
+      isLike = true
+    } else {
+     isLike = false
+    }
+    await post.save( (err) => {
+      if (err) {
+        throw err;
+      }
+
+      const token =  TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(201).json({ message: 'OK', token: token, isLike:isLike });
+    });
   }
 };
 

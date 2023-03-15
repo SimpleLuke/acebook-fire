@@ -24,6 +24,26 @@ const Post = ({post,userData}) => {
       });
   };
 
+  const checkUserLike = ()=>{
+    return fetch(`/posts/${post._id}/userLike`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        user_id: userData._id
+      }),
+    })
+    .then(response=>response.json())
+    .then(data=>{
+      console.log('isLike',data.isLike);
+      setClicked(data.isLike)
+      window.localStorage.setItem("token", data.token);
+      setToken(window.localStorage.getItem("token"));
+    })
+  }
+
   const updateLike = () => {
    return fetch(`/posts/${post._id}/likes`, {
       method: "POST",
@@ -37,15 +57,16 @@ const Post = ({post,userData}) => {
     })
     .then(response=>response.json())
     .then(data=>{
-      console.log(data);
+      // console.log(data);
       window.localStorage.setItem("token", data.token);
       setToken(window.localStorage.getItem("token"));
     })
   }
 
   useEffect(()=>{
+    checkUserLike()
     fetchPostLikes()
-  },[clicked])
+  },[])
 
   useEffect(()=>{if (post.createdAt){
     const timestampFormatted = post.createdAt.split('T')
