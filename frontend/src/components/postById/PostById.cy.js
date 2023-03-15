@@ -18,7 +18,7 @@ describe("PostById", () => {
             })
         }).as("getPost");
 
-    cy.mount(<PostById navigate={navigate}/>);
+    cy.mount(<PostById navigate={navigate} userData={{_id:1}}/>);
 
     cy.wait("@getPost").then(() => {
         cy.get('[data-cy="post"]')

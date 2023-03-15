@@ -19,7 +19,7 @@ describe("Feed", () => {
       });
     }).as("getPosts");
 
-    cy.mount(<BrowserRouter><Feed navigate={navigate} /></BrowserRouter>);
+    cy.mount(<BrowserRouter><Feed navigate={navigate} userData={{_id:1}} /></BrowserRouter>);
 
     cy.wait("@getPosts").then(() => {
       cy.get('[data-cy="post"]')
