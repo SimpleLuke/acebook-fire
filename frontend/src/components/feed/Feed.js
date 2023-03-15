@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Post from "../post/Post";
+import Image from "../image/Image";
 import Navbar from "../navbar/Navbar";
 import "./Feed.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const Feed = ({ navigate, userData, storeUserData }) => {
   const [posts, setPosts] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newPost, setNewPost] = useState("");
+  const [image, setImage] = useState(null);
 
   const fetchPosts = () => {
     fetch("/posts", {
@@ -36,21 +39,28 @@ const Feed = ({ navigate, userData, storeUserData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await fetch("/posts", {
+    const formData = new FormData();
+    formData.append("message", newPost);
+    formData.append("firstName", userData.firstName);
+    formData.append("lastName", userData.lastName);
+    if (image) {
+      formData.append("image", image);
+    }
+
+    await axios.post("/posts", formData, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        message: newPost,
-        firstName: userData.firstName,
-        lastName: userData.lastName,
-      }),
-      //  body: JSON.stringify({ message: newPost})
     });
     setNewPost("");
+    setImage(null);
     fetchPosts();
+  };
+
+  const handleImageUpload = (event) => {
+    setImage(event.target.files[0]);
   };
 
   if (token) {
@@ -72,6 +82,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
               data-cy="post-input"
             />
           </label>
+          <Image type="file" handleImageUpload={handleImageUpload} />
           <button type="submit" data-cy="form-submit">
             Post
           </button>
