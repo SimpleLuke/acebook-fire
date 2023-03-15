@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
 import Post from "../post/Post";
 
-const PostById = ({ navigate }) => {
+const PostById = ({ navigate,userData }) => {
   const {postId} = useParams();
   const [post, setPost] = useState(null);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -27,7 +27,7 @@ const PostById = ({ navigate }) => {
   }, [postId, token]);
   return (
     <div>
-     {post && <Post post={post} />}
+     {post && <Post post={post} userData={userData} />}
     </div>
   );
 };

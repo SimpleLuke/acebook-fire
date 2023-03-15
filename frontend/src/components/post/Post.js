@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react';
 
-const Post = ({post}) => {
+const Post = ({post,userData}) => {
   const [clicked, setClicked] = useState(false);
   const [likeCount, setLikeCount] = useState('');
   const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -9,14 +9,14 @@ const Post = ({post}) => {
   const [fullName, setFullName] = useState("")
 
   const fetchPostLikes = () => {
-    console.log("postId frontend", post._id)
-    fetch(`/posts/${post._id}/likes`, {
+    // console.log("postId frontend", post._id)
+    return fetch(`/posts/${post._id}/likes`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
-      .then(async (data) => {
+      .then( (data) => {
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
         setLikeCount(data.post.likes.length);
@@ -24,9 +24,28 @@ const Post = ({post}) => {
       });
   };
 
+  const updateLike = () => {
+   return fetch(`/posts/${post._id}/likes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        user_id: userData._id
+      }),
+    })
+    .then(response=>response.json())
+    .then(data=>{
+      console.log(data);
+      window.localStorage.setItem("token", data.token);
+      setToken(window.localStorage.getItem("token"));
+    })
+  }
+
   useEffect(()=>{
     fetchPostLikes()
-  },[])
+  },[clicked])
 
   useEffect(()=>{if (post.createdAt){
     const timestampFormatted = post.createdAt.split('T')
@@ -36,14 +55,11 @@ const Post = ({post}) => {
   }},[])
 
 
-  const handleClick = (event) => {
-    event.preventDefault()
-    if (clicked) {
-      
-    } else {
-      
-    }
-    fetchPostLikes()
+  const handleClick = async(event) => {
+    event.preventDefault();
+
+    await updateLike();
+    await fetchPostLikes();
     setClicked(!clicked);
   };
 

@@ -7,5 +7,6 @@ router.get("/", PostsController.Index);
 router.post("/", PostsController.Create);
 router.get("/:postId", PostsController.FindById);
 router.get("/:postId/likes", PostsController.GetLikesByPost);
+router.post("/:postId/likes", PostsController.UpdateLikesByPost);
 
 module.exports = router;
