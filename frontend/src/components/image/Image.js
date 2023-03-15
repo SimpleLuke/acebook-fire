@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Image = ({ handleImageUpload }) => {
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];

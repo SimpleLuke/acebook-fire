@@ -17,7 +17,10 @@ const ImagesController = {
       await image.save();
 
       const token = await TokenGenerator.jsonwebtoken(req.user_id);
-      res.status(201).json({ message: "OK", token: token });
+      res.status(201).json({
+        path: req.file.path,
+        filename: req.file.filename,
+      });
     } catch (err) {
       res.status(500).json({ message: "Server error" });
     }

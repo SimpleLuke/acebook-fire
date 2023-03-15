@@ -40,27 +40,41 @@ const Feed = ({ navigate, userData, storeUserData }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("message", newPost);
-    formData.append("firstName", userData.firstName);
-    formData.append("lastName", userData.lastName);
+    let imageData = {};
     if (image) {
       formData.append("image", image);
+      imageData = await axios.post("/upload", formData, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
     }
 
-    await axios.post("/posts", formData, {
+    const postData = {
+      message: newPost,
+      firstName: userData.firstName,
+      lastName: userData.secondName,
+      filename: imageData.filename,
+      path: imageData.filename,
+    };
+
+    await axios.post("/posts", postData, {
       method: "POST",
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     });
+
     setNewPost("");
     setImage(null);
     fetchPosts();
   };
 
-  const handleImageUpload = (event) => {
-    setImage(event.target.files[0]);
+  const handleImageUpload = (file) => {
+    setImage(file);
   };
 
   if (token) {
