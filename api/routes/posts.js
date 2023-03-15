@@ -6,5 +6,8 @@ const PostsController = require("../controllers/posts");
 router.get("/", PostsController.Index);
 router.post("/", PostsController.Create);
 router.get("/:postId", PostsController.FindById);
+router.get("/:postId/comments", PostsController.FindComments);
+router.post("/:postId/comments", PostsController.FindComments);
+
 
 module.exports = router;

@@ -24,13 +24,22 @@ const PostsController = {
   },
 
   FindById: (req, res) => {
-
     Post.findOne({_id: req.params.postId}, async (err, post) => {
       if (err) {
         throw err;
       }
       const token = await TokenGenerator.jsonwebtoken(req.user_id)
       res.status(200).json({ post: post, token: token });
+    });
+  },
+
+  FindComments: (req, res) => {
+    Post.findOne({_id: req.params.postId}, async (err, post) => {
+      if (err) {
+        throw err;
+      }
+      const token = await TokenGenerator.jsonwebtoken(req.user_id)
+      res.status(200).json({ comments: post.comments, token: token });
     });
   },
 };

@@ -39,7 +39,7 @@ const PostById = ({ navigate, userData, storeUserData }) => {
     <div>
      <Post post={post} />
      -------------------------
-     <Comments post={post} />
+     <Comments/>
     </div>
     </>
   );

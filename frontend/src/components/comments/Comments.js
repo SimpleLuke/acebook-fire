@@ -9,61 +9,57 @@ const Comments = ({ navigate, userData, storeUserData }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newComment, setNewComment] = useState("");
 
-  // const fetchComments = () => {
-  //   fetch("/posts", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then(async (data) => {
-  //       window.localStorage.setItem("token", data.token);
-  //       setToken(window.localStorage.getItem("token"));
-  //       setComments(data.comments);
-  //     });
-  // };
+  const fetchComments = () => {
+    return fetch(`/posts/${postId}/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => response.json())
+      .then(async (data) => {
+        window.localStorage.setItem("token", data.token);
+        setToken(window.localStorage.getItem("token"));
+        setComments(data.comments);
+        console.log("fetchComments test")
+        console.log(data) //This returns an array of objects, each being a hashmap of the comment in 
+        // in the database, with one character per key (?)
+      });
+  };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   await fetch("/posts", {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //     body: JSON.stringify({
-  //       message: newComment,
-  //       firstName: userData.firstName,
-  //       lastName: userData.lastName,
-  //     }),
-  //   });
-  //   setNewComment("");
-  //   fetchComments();
+  useEffect(()=>{
+    fetchComments()
+  },[])
   
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await fetch(`/posts/${postId}`, {
-      method: "PATCH",
+    await fetch(`/posts/${postId}/comments`, {
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        comments: { 
-          firstName: 'userData.firstName',
-          lastName: 'userData.lastName',
+        comments: [ ...comments, { 
+          // firstName: 'userData.firstName',
+          // lastName: 'userData.lastName',
           message: newComment,
-          created_at: Date.now }
+          // created_at: Date.now 
+        }]
       }),
     });
+    console.log("handleSubmit test")
+    console.log(comments)// ARRAY IS EMPTY
     setNewComment("");
-    // fetchComments();
+    fetchComments();
+    console.log(...comments)// ARRAY IS STILL EMPTY
   };
+
+
 
 if (token) {
     return (
       <>
-        <h3>Comments</h3>
+        <h5>Comments</h5>
         <form onSubmit={handleSubmit}>
           <label>
             Add a new comment:
@@ -78,11 +74,27 @@ if (token) {
             Post
           </button>
         </form>
-        <div>
-        </div>
+        <div id="commentFeed" role="commentFeed">
+        {comments.length > 0 ? (
+          [...comments].reverse().map((comment) => (
+            <div><br />{comment}</div>
+          ))
+        ) : (
+          <p>No comments yet</p>
+        )}
+      </div>
       </>
     );
   }
 };
 
 export default Comments;
+
+
+{/* <div id="commentFeed" role="commentFeed">
+{[...comments].reverse().map((comment) => (
+  <Link to={`/posts/${comment._id}`} key={comment._id}>
+    <Comments comment={comment} />
+  </Link>
+))}
+</div> */}
