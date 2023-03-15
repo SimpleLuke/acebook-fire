@@ -1,6 +1,6 @@
 const Image = require("../models/image");
 const TokenGenerator = require("../models/token_generator");
-const mime = require()
+const mime = require("mime-types");
 
 const ImagesController = {
   Upload: async (req, res) => {
@@ -9,7 +9,7 @@ const ImagesController = {
     }
     const image = new Image({
       filename: req.file.filename,
-      contentType: "image/png",
+      contentType: mime.lookup(req.file.originalname),
       path: req.file.path,
     });
 

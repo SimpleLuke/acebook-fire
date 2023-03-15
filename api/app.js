@@ -4,7 +4,7 @@ const path = require("path");
 const logger = require("morgan");
 const JWT = require("jsonwebtoken");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const upload = multer({ dest: "upload/" });
 
 const postsRouter = require("./routes/posts");
 const tokensRouter = require("./routes/tokens");
