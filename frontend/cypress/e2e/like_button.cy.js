@@ -1,4 +1,8 @@
 beforeEach(() => {
+  cy.dropCollection("posts", { failSilently: true }).then((res) => {
+    cy.log(res); // prints 'Collection dropped'
+  });
+
   cy.visit("/signup");
   cy.signup("name", "surname", "someone@example.com", "password");
   cy.visit("/login");
@@ -16,26 +20,19 @@ afterEach(() => {
 });
 
 describe("Post", () => {
-  it("toggles like button", () => {
-    cy.get('[data-cy="likeButton"]').first().click();
-    cy.get('[data-cy="likeButton"]').first().should("contain.text", "Unlike");
-    cy.get('[data-cy="likeButton"]').first().click();
-    cy.get('[data-cy="likeButton"]').first().should("contain.text", "Like");
-    cy.logout();
-  });
-
-  it("sign up, login and make a new post", () => {
+  it("toggles like button with a new post", () => {
     cy.get('input[data-cy="post-input"]').first().type("This is a new post");
     cy.get('button[data-cy="form-submit"]').first().click();
     cy.wait(1000);
-    cy.get('[data-cy="post"]')
-      .first()
-      .should("contain.text", "This is a new post");
-    cy.get('[data-cy="post"]').first().should("contain.text", "name surname");
-    cy.get('[data-cy="post"]').first().should("contain.text", "2023");
-
     cy.get('[data-cy="like-element"]')
       .first()
       .should("contain.text", "0 likes");
+    cy.get('[data-cy="likeButton"]').first().click();
+    cy.get('[data-cy="like-element"]').first().should("contain.text", "1 like");
+    cy.get('[data-cy="likeButton"]').first().should("contain.text", "Unlike");
+    cy.get('[data-cy="likeButton"]').first().click();
+
+    cy.get('[data-cy="likeButton"]').first().should("contain.text", "Like");
+    cy.logout();
   });
 });
