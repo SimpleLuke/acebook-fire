@@ -20,9 +20,6 @@ const Comments = ({ navigate, userData, storeUserData }) => {
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
         setComments(data.comments);
-        console.log("fetchComments test")
-        console.log(data) //This returns an array of objects, each being a hashmap of the comment in 
-        // in the database, with one character per key (?)
       });
   };
 
@@ -38,20 +35,13 @@ const Comments = ({ navigate, userData, storeUserData }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({
-        comments: [ ...comments, { 
-          // firstName: 'userData.firstName',
-          // lastName: 'userData.lastName',
-          message: newComment,
-          // created_at: Date.now 
-        }]
-      }),
+      body: JSON.stringify({newComment}),
     });
     console.log("handleSubmit test")
+    console.log(newComment)
     console.log(comments)// ARRAY IS EMPTY
     setNewComment("");
     fetchComments();
-    console.log(...comments)// ARRAY IS STILL EMPTY
   };
 
 
