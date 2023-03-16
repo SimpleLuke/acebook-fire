@@ -37,9 +37,6 @@ const Comments = ({ navigate, userData, storeUserData }) => {
       },
       body: JSON.stringify({newComment}),
     });
-    console.log("handleSubmit test")
-    console.log(newComment)
-    console.log(comments)// ARRAY IS EMPTY
     setNewComment("");
     fetchComments();
   };
