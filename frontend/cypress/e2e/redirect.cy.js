@@ -19,9 +19,14 @@ describe("redirect", () => {
     cy.wait(1000);
     cy.url().should("include", "/posts");
     cy.logout();
+    cy.wait(5000);
   });
 
   it("redirects to posts page if logged in and tries to access login route", () => {
+    cy.dropCollection("users", { failSilently: true }).then((res) => {
+      cy.log(res); // prints 'Collection dropped'
+    });
+
     cy.visit("/signup");
     cy.signup("name", "surname", "someone@example.com", "password");
 
@@ -33,11 +38,12 @@ describe("redirect", () => {
     cy.visit("/login");
     cy.url().should("include", "/posts");
     cy.logout();
+    cy.wait(5000);
   });
 
   it("redirects to login page if not logged in and tries to access posts route", () => {
     cy.visit("/posts");
-    cy.wait(1000);
+    cy.wait(5000);
     cy.url().should("include", "/login");
   });
 });

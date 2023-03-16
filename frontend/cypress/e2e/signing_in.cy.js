@@ -1,6 +1,11 @@
 describe("Signing in", () => {
-  before(() => {
+  beforeEach(() => {
     cy.signup("name", "surname", "someone@example.com", "password");
+  });
+  afterEach(() => {
+    cy.dropCollection("users", { failSilently: true }).then((res) => {
+      cy.log(res); // prints 'Collection dropped'
+    });
   });
 
   it("with valid credentials, redirects to '/posts'", () => {
@@ -11,6 +16,7 @@ describe("Signing in", () => {
 
     cy.url().should("include", "/posts");
     cy.logout();
+    cy.wait(5000);
   });
 
   it("with missing password, redirects to '/login'", () => {

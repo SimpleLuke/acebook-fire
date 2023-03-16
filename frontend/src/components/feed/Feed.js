@@ -80,7 +80,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         <div id="feed" role="feed">
           {[...posts].reverse().map((post) => (
             <Link to={`/posts/${post._id}`} key={post._id}>
-              <Post post={post} />
+              <Post post={post} userData={userData} />
             </Link>
           ))}
         </div>
