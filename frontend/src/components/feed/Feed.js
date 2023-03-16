@@ -11,6 +11,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newPost, setNewPost] = useState("");
   const [image, setImage] = useState(null);
+  const [isSent, setIsSent] = useState(false);
 
   const fetchPosts = () => {
     fetch("/posts", {
@@ -73,6 +74,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
       },
     });
 
+    setIsSent(true);
     setNewPost("");
     setImage(null);
     fetchPosts();
@@ -80,6 +82,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
 
   const handleImageUpload = (file) => {
     setImage(file);
+    setIsSent(false);
   };
 
   if (token) {
@@ -100,7 +103,11 @@ const Feed = ({ navigate, userData, storeUserData }) => {
             onChange={(e) => setNewPost(e.target.value)}
             data-cy="post-input"
           />
-          <Image type="file" handleImageUpload={handleImageUpload} />
+          <Image
+            type="file"
+            isSent={isSent}
+            handleImageUpload={handleImageUpload}
+          />
           <button type="submit" data-cy="form-submit">
             Post
           </button>

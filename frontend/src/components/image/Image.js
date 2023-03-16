@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-const Image = ({ handleImageUpload }) => {
+const Image = ({ handleImageUpload, isSent }) => {
   const [image, setImage] = useState("");
+
+  useEffect(() => {
+    if (isSent === true) {
+      setImage("");
+    }
+  }, [isSent]);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
