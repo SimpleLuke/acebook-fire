@@ -57,11 +57,11 @@ const Feed = ({ navigate, userData, storeUserData }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      
+
       postData = {
         ...postData,
         filename: imageData.data.filename,
-        path: imageData.data.path
+        path: imageData.data.path,
       };
     }
 
@@ -75,7 +75,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
 
     setNewPost("");
     setImage(null);
-    fetchPosts(); 
+    fetchPosts();
   };
 
   const handleImageUpload = (file) => {
