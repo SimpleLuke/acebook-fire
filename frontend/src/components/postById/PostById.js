@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import Post from "../post/Post";
 import Comments from "../comments/Comments";
 import Navbar from "../navbar/Navbar";
+import Image from "../image/Image";
 
 const PostById = ({ navigate, userData, storeUserData }) => {
   const { postId } = useParams();
@@ -20,6 +21,7 @@ const PostById = ({ navigate, userData, storeUserData }) => {
         .then((data) => {
           window.localStorage.setItem("token", data.token);
           setToken(window.localStorage.getItem("token"));
+          console.log("DATAAAA:", data.post);
           setPost(data.post);
         })
         .catch((error) => {

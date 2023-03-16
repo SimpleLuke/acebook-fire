@@ -9,6 +9,7 @@ const PostSchema = new mongoose.Schema(
     lastName: String,
     comments: [String],
     likes: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    path: String,
   },
   { timestamps: true }
 );
