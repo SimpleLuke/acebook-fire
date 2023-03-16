@@ -9,7 +9,6 @@ const Post = ({ post, userData }) => {
   const [fullName, setFullName] = useState("");
 
   const fetchPostLikes = () => {
-    // console.log("postId frontend", post._id)
     return fetch(`/posts/${post._id}/likes`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -20,7 +19,6 @@ const Post = ({ post, userData }) => {
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
         setLikeCount(data.post.likes.length);
-        //console.log(data)
       });
   };
 
@@ -37,7 +35,6 @@ const Post = ({ post, userData }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("isLike", data.isLike);
         setClicked(data.isLike);
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
@@ -57,7 +54,6 @@ const Post = ({ post, userData }) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data);
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
       });
