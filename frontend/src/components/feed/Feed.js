@@ -24,6 +24,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
         setPosts(data.posts);
+        console.log(data.posts);
       });
   };
 
@@ -72,6 +73,12 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify({
+        message: newPost,
+        firstName: userData.firstName,
+        lastName: userData.lastName,
+      }),
+      //  body: JSON.stringify({ message: newPost})
     });
 
     setIsSent(true);
@@ -115,7 +122,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         <div id="feed" role="feed">
           {[...posts].reverse().map((post) => (
             <Link to={`/posts/${post._id}`} key={post._id}>
-              <Post post={post} />
+              <Post post={post} userData={userData} />
             </Link>
           ))}
         </div>

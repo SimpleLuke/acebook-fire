@@ -5,6 +5,7 @@ import PostById from "../postById/PostById";
 import React, { useState } from "react";
 import Feed from "../feed/Feed";
 import Home from "../home/Home";
+import Comments from "../comments/Comments";
 
 import { useNavigate, Routes, Route } from "react-router-dom";
 
@@ -35,7 +36,13 @@ const App = () => {
       <Route path="/signup" element={<SignUpForm navigate={useNavigate()} />} />
       <Route
         path="/posts/:postId"
-        element={<PostById navigate={useNavigate()} />}
+        element={
+          <PostById
+            navigate={useNavigate()}
+            userData={userData}
+            storeUserData={setUserData}
+          />
+        }
       />
     </Routes>
   );
