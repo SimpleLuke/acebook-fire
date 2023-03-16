@@ -1,5 +1,5 @@
 import Feed from "./Feed";
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
 const navigate = () => {};
 
@@ -12,28 +12,47 @@ describe("Feed", () => {
         statusCode: 200,
         body: {
           posts: [
-            { _id: 1, message: "Hello, world", createdAt: "2023-03-09T16:44:33.461Z"},
-            { _id: 2, message: "Hello again, world", createdAt: "2023-03-09T16:44:33.461Z"}
+            {
+              _id: 1,
+              message: "Hello, world",
+              createdAt: "2023-03-09T16:44:33.461Z",
+              likes: [],
+            },
+            {
+              _id: 2,
+              message: "Hello again, world",
+              createdAt: "2023-03-09T16:44:33.461Z",
+              likes: [],
+            },
           ],
         },
       });
     }).as("getPosts");
 
-    cy.mount(<BrowserRouter><Feed navigate={navigate} userData={{_id:1}} /></BrowserRouter>);
+    cy.mount(
+      <BrowserRouter>
+        <Feed navigate={navigate} userData={{ _id: 1 }} />
+      </BrowserRouter>
+    );
 
     cy.wait("@getPosts").then(() => {
       cy.get('[data-cy="post"]')
         .should("contain.text", "Hello, world")
         .and("contain.text", "Hello again, world");
-   });
+    });
   });
 
   it("sends a post request to /posts and response a OK message", () => {
     window.localStorage.setItem("token", "fakeToken");
 
-    cy.intercept("POST", "/posts", {message: "OK"}).as("newPostRequest")
+    cy.intercept("POST", "/posts", { message: "OK" }).as("newPostRequest");
 
-    cy.mount(<Feed navigate={navigate} userData={{firstName: "james", lastName:"Mcleish"}}/>);
+    cy.mount(
+      <Feed
+        navigate={navigate}
+        userData={{ firstName: "james", lastName: "Mcleish" }}
+      />
+    );
     cy.get('input[data-cy="post-input"]').should("exist");
     cy.get('input[data-cy="post-input"]').type("This is a new post");
     cy.get('button[data-cy="form-submit"]').should("exist");

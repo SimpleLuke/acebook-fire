@@ -1,30 +1,29 @@
-import React, { useState,useEffect } from 'react';
-
-const Post = ({post,userData}) => {
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+const Post = ({ post, userData }) => {
+  const { postId } = useParams();
   const [clicked, setClicked] = useState(false);
-  const [likeCount, setLikeCount] = useState('');
+  const [likeCount, setLikeCount] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  const [time, setTime] = useState("")
-  const [date, setDate] = useState("")
-  const [fullName, setFullName] = useState("")
+  const [time, setTime] = useState("");
+  const [date, setDate] = useState("");
+  const [fullName, setFullName] = useState("");
 
   const fetchPostLikes = () => {
-    // console.log("postId frontend", post._id)
     return fetch(`/posts/${post._id}/likes`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
       .then((response) => response.json())
-      .then( (data) => {
+      .then((data) => {
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
         setLikeCount(data.post.likes.length);
-        //console.log(data)
       });
   };
 
-  const checkUserLike = ()=>{
+  const checkUserLike = () => {
     return fetch(`/posts/${post._id}/userLike`, {
       method: "POST",
       headers: {
@@ -32,51 +31,51 @@ const Post = ({post,userData}) => {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        user_id: userData._id
+        user_id: userData?._id,
       }),
     })
-    .then(response=>response.json())
-    .then(data=>{
-      console.log('isLike',data.isLike);
-      setClicked(data.isLike)
-      window.localStorage.setItem("token", data.token);
-      setToken(window.localStorage.getItem("token"));
-    })
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        setClicked(data.isLike);
+        window.localStorage.setItem("token", data.token);
+        setToken(window.localStorage.getItem("token"));
+      });
+  };
 
   const updateLike = () => {
-   return fetch(`/posts/${post._id}/likes`, {
+    return fetch(`/posts/${post._id}/likes`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        user_id: userData._id
+        user_id: userData?._id,
       }),
     })
-    .then(response=>response.json())
-    .then(data=>{
-      // console.log(data);
-      window.localStorage.setItem("token", data.token);
-      setToken(window.localStorage.getItem("token"));
-    })
-  }
+      .then((response) => response.json())
+      .then((data) => {
+        window.localStorage.setItem("token", data.token);
+        setToken(window.localStorage.getItem("token"));
+      });
+  };
 
-  useEffect(()=>{
-    checkUserLike()
-    fetchPostLikes()
-  },[])
+  useEffect(() => {
+    checkUserLike();
+    // fetchPostLikes()
+    setLikeCount(post.likes.length);
+  }, []);
 
-  useEffect(()=>{if (post.createdAt){
-    const timestampFormatted = post.createdAt.split('T')
-    setTime(timestampFormatted[1].slice(0,5))
-    setDate(timestampFormatted[0])
-    setFullName(`${post.firstName} ${post.lastName}`)
-  }},[])
+  useEffect(() => {
+    if (post.createdAt) {
+      const timestampFormatted = post.createdAt.split("T");
+      setTime(timestampFormatted[1].slice(0, 5));
+      setDate(timestampFormatted[0]);
+      setFullName(`${post.firstName} ${post.lastName}`);
+    }
+  }, []);
 
-
-  const handleClick = async(event) => {
+  const handleClick = async (event) => {
     event.preventDefault();
 
     await updateLike();
@@ -84,18 +83,25 @@ const Post = ({post,userData}) => {
     setClicked(!clicked);
   };
 
-  return(
+  return (
     <>
-      <article data-cy="post" key={ post._id }> 
-      <br/>
-      <b>{fullName}</b> <br/>
-      {post.message} <br/>
-      <small>{time} | {date}</small>
-      <p data-cy="like-element">{likeCount===1?`${likeCount} like`:`${likeCount} likes`}</p>
-      <button data-cy="likeButton" onClick={handleClick}>{clicked ? 'Unlike' : 'Like'}</button>
+      <article data-cy="post" key={post._id}>
+        <br />
+        <b>{fullName}</b> <br />
+        {post.message} <br />
+        {<img src={!postId ? post.path : `../${post.path}`} alt="" />}
+        <small>
+          {time} | {date}
+        </small>
+        <p data-cy="like-element">
+          {likeCount === 1 ? `${likeCount} like` : `${likeCount} likes`}
+        </p>
+        <button data-cy="likeButton" onClick={handleClick}>
+          {clicked ? "Unlike" : "Like"}
+        </button>
       </article>
     </>
-  )
-}
+  );
+};
 
 export default Post;
