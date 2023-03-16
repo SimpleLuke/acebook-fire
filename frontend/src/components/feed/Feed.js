@@ -39,26 +39,31 @@ const Feed = ({ navigate, userData, storeUserData }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    let imageData = {};
-    if (image) {
-    formData.append("image", image);
-    imageData = await axios.post("/upload", formData, {
-      method: "POST",
-      headers: {
-        "Content-Type": "multipart/form-data",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    }
 
-    const postData = {
+    let postData = {
       message: newPost,
       firstName: userData.firstName,
       lastName: userData.lastName,
-      filename: imageData.data.filename,
-      path: imageData.data.path,
     };
+
+    if (image) {
+      const formData = new FormData();
+      formData.append("image", image);
+
+      const imageData = await axios.post("/upload", formData, {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      postData = {
+        ...postData,
+        filename: imageData.data.filename,
+        path: imageData.data.path
+      };
+    }
 
     await axios.post("/posts", postData, {
       method: "POST",
@@ -70,7 +75,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
 
     setNewPost("");
     setImage(null);
-    fetchPosts();
+    fetchPosts(); 
   };
 
   const handleImageUpload = (file) => {
@@ -87,15 +92,14 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         />
         <h2>Posts</h2>
         <form onSubmit={handleSubmit}>
-          <label>
-            Add a new post:
-            <input
-              type="text"
-              value={newPost}
-              onChange={(e) => setNewPost(e.target.value)}
-              data-cy="post-input"
-            />
-          </label>
+          <label htmlFor="post-input">Add a new post:</label>
+          <input
+            name="post-input"
+            type="text"
+            value={newPost}
+            onChange={(e) => setNewPost(e.target.value)}
+            data-cy="post-input"
+          />
           <Image type="file" handleImageUpload={handleImageUpload} />
           <button type="submit" data-cy="form-submit">
             Post

@@ -8,13 +8,10 @@ const Image = ({ handleImageUpload }) => {
     handleImageUpload(file);
     setImage(URL.createObjectURL(file));
   };
-
   return (
     <>
-      <label>
-        Add an image:
-        <input type="file" onChange={handleFileChange} />
-      </label>
+      <label htmlFor="img-upload">Add an image:</label>
+      <input name="img-upload" type="file" onChange={handleFileChange} />
       {image && <img src={image} alt="Uploaded" />}
     </>
   );

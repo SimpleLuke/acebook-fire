@@ -19,7 +19,7 @@ const Post = ({ post }) => {
       <br />
       <b>{fullName}</b> <br />
       {post.message} <br />
-      {<img src={post.path} alt="This is from a post" />}
+      {<img src={post.path} alt = ""/>}
       <small>
         {time} | {date}
       </small>
