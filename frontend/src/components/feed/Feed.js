@@ -100,31 +100,37 @@ const Feed = ({ navigate, userData, storeUserData }) => {
           userData={userData}
           storeUserData={storeUserData}
         />
-        <h2>Posts</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="post-input">Add a new post:</label>
-          <input
-            name="post-input"
-            type="text"
-            value={newPost}
-            onChange={(e) => setNewPost(e.target.value)}
-            data-cy="post-input"
-          />
-          <Image
-            type="file"
-            isSent={isSent}
-            handleImageUpload={handleImageUpload}
-          />
-          <button type="submit" data-cy="form-submit">
-            Post
-          </button>
-        </form>
-        <div id="feed" role="feed">
-          {[...posts].reverse().map((post) => (
-            <Link to={`/posts/${post._id}`} key={post._id}>
-              <Post post={post} userData={userData} />
-            </Link>
-          ))}
+        <div className="bg-red-100">
+          <h2>Posts</h2>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="post-input">Add a new post:</label>
+            <input
+              name="post-input"
+              type="text"
+              value={newPost}
+              onChange={(e) => setNewPost(e.target.value)}
+              data-cy="post-input"
+            />
+            <Image
+              type="file"
+              isSent={isSent}
+              handleImageUpload={handleImageUpload}
+            />
+            <button type="submit" data-cy="form-submit">
+              Post
+            </button>
+          </form>
+          <div
+            className="flex flex-col justify-center content-center"
+            id="feed"
+            role="feed"
+          >
+            {[...posts].reverse().map((post) => (
+              <Link to={`/posts/${post._id}`} key={post._id}>
+                <Post post={post} userData={userData} />
+              </Link>
+            ))}
+          </div>
         </div>
       </>
     );
