@@ -20,6 +20,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
         window.localStorage.setItem("token", data.token);
         setToken(window.localStorage.getItem("token"));
         setPosts(data.posts);
+        console.log(data.posts)
       });
   };
 
@@ -45,7 +46,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
       body: JSON.stringify({
         message: newPost,
         firstName: userData.firstName,
-        lastName: userData.lastName,
+        lastName: userData.lastName
       }),
       //  body: JSON.stringify({ message: newPost})
     });

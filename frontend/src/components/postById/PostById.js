@@ -1,18 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import {useParams} from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import Post from "../post/Post";
+import Comments from "../comments/Comments";
+import Navbar from "../navbar/Navbar";
 
-const PostById = ({ navigate,userData }) => {
-  const {postId} = useParams();
+const PostById = ({ navigate, userData, storeUserData }) => {
+  const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
-  
+
   useEffect(() => {
     if (token) {
       fetch(`/posts/${postId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
-        }
+        },
       })
         .then((response) => response.json())
         .then((data) => {
@@ -26,9 +28,18 @@ const PostById = ({ navigate,userData }) => {
     }
   }, [postId, token]);
   return (
-    <div>
-     {post && <Post post={post} userData={userData} />}
-    </div>
+    <>
+      <Navbar
+        navigate={navigate}
+        userData={userData}
+        storeUserData={storeUserData}
+      />
+      <div>
+        {post && <Post post={post} userData={userData} />}
+        -------------------------
+        <Comments />
+      </div>
+    </>
   );
 };
 export default PostById;

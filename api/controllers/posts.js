@@ -34,6 +34,30 @@ const PostsController = {
     });
   },
 
+  FindComments: (req, res) => {
+    Post.findOne({ _id: req.params.postId }, async (err, post) => {
+      if (err) {
+        throw err;
+      }
+      const token = await TokenGenerator.jsonwebtoken(req.user_id);
+      res.status(200).json({ comments: post.comments, token: token });
+    });
+  },
+
+  AddComment: (req, res) => {
+    Post.findOneAndUpdate(
+      { _id: req.params.postId },
+      { $push: { comments: req.body.newComment } },
+      { returnNewDocument: true },
+      async (err, post) => {
+        if (err) {
+          throw err;
+        }
+        const token = await TokenGenerator.jsonwebtoken(req.user_id);
+        res.status(200).json({ message: "Comment added", token: token });
+      }
+    );
+  },
   GetLikesByPost: (req, res) => {
     Post.findById(req.params.postId)
       .populate("likes")
