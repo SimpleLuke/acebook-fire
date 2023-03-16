@@ -1,6 +1,5 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Image from "../image/Image";
 
 const Post = ({ post }) => {
   const [time, setTime] = useState("");
@@ -20,7 +19,7 @@ const Post = ({ post }) => {
       <br />
       <b>{fullName}</b> <br />
       {post.message} <br />
-      {post.path && <img src={post.path} alt="" />}
+      {<img src={post.path} alt="This is from a post" />}
       <small>
         {time} | {date}
       </small>

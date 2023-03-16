@@ -42,22 +42,22 @@ const Feed = ({ navigate, userData, storeUserData }) => {
     const formData = new FormData();
     let imageData = {};
     if (image) {
-      formData.append("image", image);
-      imageData = await axios.post("/upload", formData, {
-        method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+    formData.append("image", image);
+    imageData = await axios.post("/upload", formData, {
+      method: "POST",
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${token}`,
+      },
+    });
     }
 
     const postData = {
       message: newPost,
       firstName: userData.firstName,
-      lastName: userData.secondName,
-      filename: imageData.filename,
-      path: imageData.filename,
+      lastName: userData.lastName,
+      filename: imageData.data.filename,
+      path: imageData.data.path,
     };
 
     await axios.post("/posts", postData, {

@@ -5,7 +5,6 @@ import PostById from "../postById/PostById";
 import React, { useState } from "react";
 import Feed from "../feed/Feed";
 import Home from "../home/Home";
-import Image from "../image/Image";
 
 import { useNavigate, Routes, Route } from "react-router-dom";
 
