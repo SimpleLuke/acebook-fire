@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import {useParams} from 'react-router-dom';
-import PostById from '../postById/PostById'
-import {Link} from 'react-router-dom'
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import PostById from "../postById/PostById";
+import { Link } from "react-router-dom";
 
 const Comments = ({ navigate, userData, storeUserData }) => {
-  const {postId} = useParams();
+  const { postId } = useParams();
   const [comments, setComments] = useState([]);
   const [token, setToken] = useState(window.localStorage.getItem("token"));
   const [newComment, setNewComment] = useState("");
@@ -23,10 +23,10 @@ const Comments = ({ navigate, userData, storeUserData }) => {
       });
   };
 
-  useEffect(()=>{
-    fetchComments()
-  },[])
-  
+  useEffect(() => {
+    fetchComments();
+  }, []);
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     await fetch(`/posts/${postId}/comments`, {
@@ -35,15 +35,13 @@ const Comments = ({ navigate, userData, storeUserData }) => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify({newComment}),
+      body: JSON.stringify({ newComment }),
     });
     setNewComment("");
     fetchComments();
   };
 
-
-
-if (token) {
+  if (token) {
     return (
       <>
         <h5>Comments</h5>
@@ -62,14 +60,17 @@ if (token) {
           </button>
         </form>
         <div id="commentFeed" role="commentFeed">
-        {comments.length > 0 ? (
-          [...comments].reverse().map((comment) => (
-            <div><br />{comment}</div>
-          ))
-        ) : (
-          <p>No comments yet</p>
-        )}
-      </div>
+          {comments?.length > 0 ? (
+            [...comments].reverse().map((comment) => (
+              <div>
+                <br />
+                {comment}
+              </div>
+            ))
+          ) : (
+            <p>No comments yet</p>
+          )}
+        </div>
       </>
     );
   }
@@ -77,11 +78,12 @@ if (token) {
 
 export default Comments;
 
-
-{/* <div id="commentFeed" role="commentFeed">
+{
+  /* <div id="commentFeed" role="commentFeed">
 {[...comments].reverse().map((comment) => (
   <Link to={`/posts/${comment._id}`} key={comment._id}>
     <Comments comment={comment} />
   </Link>
 ))}
-</div> */}
+</div> */
+}
