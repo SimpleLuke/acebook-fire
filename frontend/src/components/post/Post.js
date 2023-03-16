@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-
+import { useParams } from "react-router-dom";
 const Post = ({ post, userData }) => {
+  const { postId } = useParams();
   const [clicked, setClicked] = useState(false);
   const [likeCount, setLikeCount] = useState("");
   const [token, setToken] = useState(window.localStorage.getItem("token"));
@@ -88,6 +89,7 @@ const Post = ({ post, userData }) => {
         <br />
         <b>{fullName}</b> <br />
         {post.message} <br />
+        {<img src={!postId ? post.path : `../${post.path}`} alt="" />}
         <small>
           {time} | {date}
         </small>
