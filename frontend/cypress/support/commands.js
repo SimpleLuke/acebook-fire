@@ -12,6 +12,7 @@
 // -- This is a parent command --
 Cypress.Commands.add("signup", (firstName, lastName, email, password) => {
   cy.visit("/signup");
+  cy.wait(4000);
   cy.get("#firstName").type(firstName);
   cy.get("#lastName").type(lastName);
   cy.get("#email").type(email);
