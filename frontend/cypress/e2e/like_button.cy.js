@@ -21,7 +21,7 @@ afterEach(() => {
 
 describe("Post", () => {
   it("toggles like button with a new post", () => {
-    cy.get('input[data-cy="post-input"]').first().type("This is a new post");
+    cy.get('[data-cy="post-input"]').first().type("This is a new post");
     cy.get('button[data-cy="form-submit"]').first().click();
     cy.wait(1000);
     cy.get('[data-cy="like-element"]')
