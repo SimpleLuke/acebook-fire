@@ -84,7 +84,7 @@ const LogInForm = ({ navigate, storeUserData }) => {
           id="submit"
           type="submit"
           value="Log In"
-          className="w-full rounded-md bg-red-400 py-2 px-3 text-sm font-semibold text-white shadow hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 mb-2"
+          className="w-full rounded-md w-1/2 bg-red-400 py-2 px-3 text-sm font-semibold text-white shadow hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400 mb-2"
         />
       </div>
       <div className="flex justify-center">
@@ -94,7 +94,7 @@ const LogInForm = ({ navigate, storeUserData }) => {
           type="button"
           value="Sign Up"
           onClick={handleSignUp}
-          className="w-full rounded-md bg-red-400 py-2 px-3 text-sm font-semibold text-white shadow hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
+          className="w-full rounded-md w-1/2 bg-red-400 py-2 px-3 text-sm font-semibold text-white shadow hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-400"
         />
       </div>
     </div>
