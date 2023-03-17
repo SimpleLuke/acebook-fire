@@ -9,7 +9,8 @@ const Navbar = ({ navigate, userData, storeUserData }) => {
   };
 
   return (
-    <nav className="h-16 p2 pt-9 pb-9 mx-auto place-content-between relative flex px-5 flex bg-red-200 flex items-center">
+    <div className="sticky top-0">
+<nav className="sticky top-0 h-16 p2 pt-9 pb-9 mx-auto place-content-between relative flex px-5 flex bg-red-200 flex items-center">
       <div
         className="w-48 text-lg text-white cursor-pointer"
         data-cy="homeButton"
@@ -33,6 +34,8 @@ const Navbar = ({ navigate, userData, storeUserData }) => {
       </div>
       
     </nav>
+    </div>
+    
   );
 };
 
