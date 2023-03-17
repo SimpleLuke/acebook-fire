@@ -36,7 +36,7 @@ const PostById = ({ navigate, userData, storeUserData }) => {
         userData={userData}
         storeUserData={storeUserData}
       />
-      <div className="bg-body-background min-h-screen h-auto pt-5 flex-col">
+      <div className="bg-body-background min-h-screen h-auto pt-5 pb-5 flex-col">
         {post && <Post post={post} userData={userData} />}
         <Comments />
       </div>

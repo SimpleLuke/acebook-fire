@@ -120,8 +120,8 @@ const Feed = ({ navigate, userData, storeUserData }) => {
               />
             </div>
             <div className="min-w-0 flex-1">
-              <form onSubmit={handleSubmit} className="relative">
-                <div className="overflow-hidden rounded-t-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
+              <form onSubmit={handleSubmit} className="z-0 relative">
+                <div className="overflow-hidden -z-10 relative rounded-t-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
                   <label htmlFor="comment" className="sr-only">
                     Add your post
                   </label>
@@ -132,7 +132,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
                     rows={3}
                     name="comment"
                     id="comment"
-                    className="block w-full p-2 resize-none border-0 bg-white bg-opacity-70 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6"
+                    className="relative -z-10 block w-full p-2 resize-none border-0 bg-white bg-opacity-70  text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:py-1.5 sm:text-sm sm:leading-6"
                     placeholder="Add your comment..."
                     defaultValue={""}
                   />
