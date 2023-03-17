@@ -56,7 +56,7 @@ const SignUpForm = ({ navigate }) => {
   };
 
   return (
-    <div className="bg-cover bg-no-repeat min-h-screen bg-body-background">
+    <div className="bg-cover bg-no-repeat min-h-screen bg-body-background2">
     <div className="w-1/2 mx-auto p-8 rounded-lg">
       <div className="flex min-h-full">
             <div className="flex flex-1 flex-col justify-center py-8 px-2 lg:px-6 lg:flex-none lg:px-12 xl:px-16 bg-gray-50 rounded-2xl -translate-x-64 border border-gray-200 shadow-md">
