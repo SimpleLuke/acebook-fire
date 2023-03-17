@@ -7,11 +7,14 @@ module.exports = {
         sans: ['Inter var'],
       },
       backgroundImage: {
-        'body-background': "url(‘../public/img/burnbookbg.jpg')",
+        'body-background': "url('/public/img/burnbookbg.jpg')"
+      },
+      height: {
+        'full-screen': '100vh',
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/forms'),
-  ],
+  // plugins: [
+  //   require('@tailwindcss/forms'),
+  // ],
 };
