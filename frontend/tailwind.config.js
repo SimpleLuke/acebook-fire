@@ -7,6 +7,9 @@ module.exports = {
       fontFamily: {
         sans: ["Inter var"],
       },
+      backgroundImage: {
+        "body-background": "url('../public/img/burnbookbg.jpg')",
+      },
     },
   },
   plugins: [],

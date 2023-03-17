@@ -53,8 +53,8 @@ describe("Feed", () => {
         userData={{ firstName: "james", lastName: "Mcleish" }}
       />
     );
-    cy.get('input[data-cy="post-input"]').should("exist");
-    cy.get('input[data-cy="post-input"]').type("This is a new post");
+    cy.get('[data-cy="post-input"]').should("exist");
+    cy.get('[data-cy="post-input"]').type("This is a new post");
     cy.get('button[data-cy="form-submit"]').should("exist");
     cy.get('button[data-cy="form-submit"]').click();
     cy.wait("@newPostRequest")

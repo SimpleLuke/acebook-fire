@@ -110,7 +110,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
           userData={userData}
           storeUserData={storeUserData}
         />
-        <div className="bg-red-100 flex-col">
+        <div className="bg-body-background flex-col">
           <div className="flex w-1/2 mx-auto pt-5 items-start space-x-4">
             <div className="flex-shrink-0">
               <img
@@ -123,7 +123,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
               <form onSubmit={handleSubmit} className="relative">
                 <div className="overflow-hidden rounded-t-lg shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-indigo-600">
                   <label htmlFor="comment" className="sr-only">
-                    Add your comment
+                    Add your post
                   </label>
                   <textarea
                     value={newPost}
