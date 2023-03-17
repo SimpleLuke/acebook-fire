@@ -110,7 +110,7 @@ const Feed = ({ navigate, userData, storeUserData }) => {
           userData={userData}
           storeUserData={storeUserData}
         />
-        <div className="bg-body-background flex-col">
+        <div className="bg-body-background min-h-screen flex-col">
           <div className="flex w-1/2 mx-auto pt-5 items-start space-x-4">
             <div className="flex-shrink-0">
               <img
