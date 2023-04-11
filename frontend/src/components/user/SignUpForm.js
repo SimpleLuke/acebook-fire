@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-
 const SignUpForm = ({ navigate }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -57,24 +56,23 @@ const SignUpForm = ({ navigate }) => {
 
   return (
     <div className="bg-cover bg-no-repeat min-h-screen bg-body-background2">
-    <div className="w-1/2 mx-auto p-8 rounded-lg">
-      <div className="flex min-h-full">
-            <div className="flex flex-1 flex-col justify-center py-8 px-2 lg:px-6 lg:flex-none lg:px-12 xl:px-16 bg-gray-50 rounded-2xl -translate-x-64 border border-gray-200 shadow-md">
-              <div className=" mx-auto w-full max-w-lg lg:w-96">
-                <div>
-                  <img
-                    className="items-center h-auto w-auto"
-                    src="./burnbook.png"
-                    alt="burn-book"
-                  />
-                  <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-red-400">Sign Up</h2>
-                  
-                </div >
-                <div className="flex flex-col justify-center p-4 mt-6">
-                  
+      <div className="w-1/2 my-auto mx-auto p-8 rounded-lg">
+        <div className="flex min-h-full justify-center items-center">
+          <div className="flex flex-1 flex-col justify-center translate-y-20 py-8 px-2 lg:flex-none lg:px-12 xl:px-16 bg-gray-50 rounded-2xl -translate-x-64 border border-gray-200 shadow-md">
+            <div className=" mx-auto w-full max-w-lg lg:w-96">
+              <div>
+                <img
+                  className="items-center h-auto w-auto -translate-y-10"
+                  src="./burnbook.png"
+                  alt="burn-book"
+                />
+              </div>
+              <div className="flex flex-col justify-center p-4 mt-6">
+                <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-red-400">
+                  Sign Up
+                </h2>
 
-                  <form className="my-auto" onSubmit={handleSubmit}>
-                  
+                <form className="my-auto" onSubmit={handleSubmit}>
                   <div>
                     <div className="mt-2">
                       <input
@@ -122,32 +120,22 @@ const SignUpForm = ({ navigate }) => {
                     />
                   </div>
 
-                  
-                  <div class="mt-2" >
-                    <input 
+                  <div class="mt-2">
+                    <input
                       className=" flex w-full justify-center rounded-lg bg-red-400 py-2 px-3 text-lg font-semibold text-white shadow-lg hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                      id="submit" 
-                      type="submit" 
+                      id="submit"
+                      type="submit"
                       value="Submit"
                     />
-                    
                   </div>
-            
                 </form>
-            
-
-
-                </div>
               </div>
             </div>
-            <div className="relative hidden w-0 flex-1 lg:block flex min-h-full">
-                 
-            </div>
           </div>
-        </div>  
+          <div className="relative hidden w-0 flex-1 lg:block flex min-h-full"></div>
+        </div>
+      </div>
     </div>
-
-    
   );
 };
 

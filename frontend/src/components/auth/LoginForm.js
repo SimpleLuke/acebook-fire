@@ -53,7 +53,7 @@ const LogInForm = ({ navigate, storeUserData }) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="h-screen bg-body-background flex items-center"
+      className="bg-cover bg-no-repeat min-h-screen bg-body-background flex items-center"
     >
       <div className="w-full max-w-md mx-auto">
         <img src={burnBook} style={{ display: "block", margin: "auto" }} />
