@@ -1,256 +1,224 @@
-# Acebook
+<a name="readme-top"></a>
 
-In this project, you are tasked with working on an existing application. A significant part of the challenge will be to familiarise yourself with the codebase you've inherited, as you work to **improve and extend** it.
+<!-- PROJECT LOGO -->
+<br />
+<div align="center">
+  <img width="861" alt="image" src="https://user-images.githubusercontent.com/89473016/231215882-f80cb52b-6891-40fe-b966-b19c42035392.png">
 
-## Videos
+  <h3 align="center">Burnbook</h3>
+  
+  This is a project required developers to work on an existing application. Read the original [README](https://github.com/makersacademy/acebook-mern-template)
+   
+</div>
 
-These videos complement the docs below.
+<!-- TABLE OF CONTENTS -->
+<details>
+  <summary>Table of Contents</summary>
+  <ol>
+    <li>
+      <a href="#about-the-project">About The Project</a>
+      <ul>
+        <li><a href="#built-with">Built With</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#getting-started">Getting Started</a>
+      <ul>
+        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#installation">Installation</a></li>
+        <li><a href="#start">Start</a></li>
+        <li><a href="#test">Test</a></li>
+      </ul>
+    </li>
+    <li><a href="#usage">Usage</a></li>
+    <li><a href="#future-roadmap">Future roadmap</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#acknowledgments">Acknowledgments</a></li>
+  </ol>
+</details>
 
-* [An overview of the app](https://youtu.be/meTABGgrO2c)
-* [The backend (api)](https://youtu.be/mFczOzWW3vo)
-* [Postman](https://youtu.be/VO_kinuJngA)
+<!-- ABOUT THE PROJECT -->
 
-## Existing Features
+## About The Project
 
-It's already possible for a user to:
-- Sign up
-- Sign in
-- Sign out
-- View a list of posts
+Burnbook is a social platform for sharing your daily highlights.
 
-## Technologies
+Users can sign up, make a post, upload a photo, and like or comment posts from other users.
 
-Here's an overview of the technologies used to build this template application. You don't need to do a deep dive on each one right now. Instead, try to get a feeling for the big picture and then dive into the details when a specific task pushes you in that direction.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### **M** is for MongoDB
-[MongoDB](https://www.mongodb.com/) is a _NoSQL_ database program that stores data in collections of documents (in a format similar to JSON), rather than in tables. The application interacts with MongoDB using a tool called Mongoose.
+### Built With
 
-### **E** is for Express
-[Express](https://expressjs.com/) is the Javascript equivalent of Sinatra. The structure of this application will feel quite different to what you're used to but the principles are the same.
+- React
+- React Router
+- Axios
+- Node.js
+- Express.js
+- JWT
+- MongoDB
+- Tailwind
+- HeadlessUI
+- Cypress
+- Jest
 
-### **R** is for React
-[React](https://reactjs.org/) is a hugely popular tool that is used to build engaging front ends. The basic principle is that the front end is split up into _components_, each of which _could_ include some logic, template structure (HTML) and styling (CSS).
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-### **N** is for Node
-Java script was originally designed to run exclusively in browsers, such as Chrome. [Node](https://nodejs.org/en/) is a tool that allows you to run Javascript outside the browser and its invention made it possible to build full stack Javascript apps.
+<!-- GETTING STARTED -->
 
-We also used...
+## Getting Started
 
-- [Jest](https://jestjs.io/) for unit testing on the back end
-- [Cypress](https://www.cypress.io/) for end-to-end testing and component testing, on the front end
-- [Mongoose](https://mongoosejs.com) to model objects in MongoDB.
-- [Handlebars](https://handlebarsjs.com/) for the `home` template.
-- [ESLint](https://eslint.org) for linting.
-- [Nodemon](https://nodemon.io/) to reload the server automatically.
+### Prerequisites
 
-## Architecture
+- npm
+  ```sh
+  npm install npm@latest -g
+  ```
 
-This application is comprised of two distinct pieces.
+### Installation
 
-- A backend API built with Express
-- A front end built with React
-
-The React front end sends HTTP requests to the backend API and receives JSON in response body, rather than a whole page of HTML.
-
-For example, the React front end would send this request to retrieve the entire `Post` collection.
-
-```
-GET "/posts"
-```
-
-And the body of the response would look like this.
-
-```
-{
-    "posts": [
-        {
-            "_id": "62f8ef0e6c1ffcf74cbbb181",
-            "message": "Hello, this is my first Acebook post!",
-            "__v": 0
-        },
-        {
-            "_id": "62f8ef366c1ffcf74cbbb188",
-            "message": "Welcome to Acebook! Have an Acetime :)",
-            "__v": 0
-        },
-        {
-            "_id": "62f8f08af1cffef85a7426ae",
-            "message": "Thank you :D",
-            "__v": 0
-        }
-    ]
-}
-```
-
-Here's a diagram of the above
-<br>
-<br>
-![a diagram of the MERN stack](./diagrams/mern_stack.png)
-<br>
-<br>
-
-Once received by the React FE, the JSON in the response body is used to render a list of posts on the page.
-
-![response body mapped onto a page](./diagrams/response_parsing.png)
-
-This architectural pattern is quite popular because it allows teams to build multiple front ends, all of which use the same backend API. You could, for example, go on to build a mobile app without needing to create another backend API.
-## Authentication
-
-Up until now, if you've implemented authentication, it will likely have been done using sessions - this is a useful point of comparison but, if you haven't implemented authentication yet, that's not going to impede you right now.
-
-Here's the authentication flow for this application
-
-1. A registered user submits their email address and password via the React front end.
-2. The Express backend receives the data and tries to find a user in the DB with the same email address.
-3. If a user is found, the password in the database is compared to the password that was submitted.
-4. If the passwords match, a JSON Web Token is generated and returned, as part of the response.
-5. The React front end receives the token and holds on to it.
-6. Every request to `"/posts"` must include a valid token (which is checked by the backend).
-7. When the user logs out, the front end discards the token.
-
-![authentication flow diagram](./diagrams/auth_flow.png)
-
-### What is a JSON Web Token?
-
-A JSON Web Token, or JWT, is a token that comprises three parts
-
-- A header, which contains information about how the token was generated.
-- A signature, which is used to verify the token.
-- A payload, which you can use to store some **non-sensitive data** like a user id. Note that the payload is not secure and can be decoded very easily.
-
-The signature is created using a 'secret', which must be kept private (i.e. not put on GitHub) otherwise nefarious internet users could start to issue tokens for your application.
-
-Here, we've used an environment variable called `JWT_SECRET`, which you'll see used in the commands to start the application and run the tests (below). You can change the value of that environment variable to anything you like.
-## Card wall
-
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
-
-## Quickstart
-
-### Install Node.js
-
-1. Install Node Version Manager (NVM)
+1. Clone the repo
+   ```sh
+   git clone https://github.com/SimpleLuke/acebook-fire.git
    ```
-   brew install nvm
+2. Install NPM packages
+   ```sh
+   cd frontend/
+   npm install
+   cd api/
+   npm install
    ```
-   Then follow the instructions to update your `~/.bash_profile`.
-2. Open a new terminal
-3. Install the latest version of [Node.js](https://nodejs.org/en/), currently `18.1.0`.
-   ```
-   nvm install 18
-   ```
+3. Install MongoDB
 
-### Set up your project
-
-1. Fork this repository
-2. Rename your fork to `acebook-<team name>`
-3. Clone your fork to your local machine
-4. Install Node.js dependencies for both FE and BE (API)
-   ```
-   ; cd api
-   ; npm install
-   ; cd ../frontend
-   ; npm install
-   ```
-5. Install an ESLint plugin for your editor. For example: [`linter-eslint`](https://github.com/AtomLinter/linter-eslint) for Atom.
-6. Install MongoDB
    ```
    brew tap mongodb/brew
    brew install mongodb-community@5.0
    ```
-   *Note:* If you see a message that says `If you need to have mongodb-community@5.0 first in your PATH, run:`, follow the instruction. Restart your terminal after this.
-7. Start MongoDB
+
+4. Start MongoDB
    ```
    brew services start mongodb-community@5.0
    ```
 
 ### Start
 
-1. Start the server
-
-  **Note the use of an environment variable for the JWT secret**
+1. Start the frontend server
 
    ```
-   ; cd api
-   ; JWT_SECRET=SUPER_SECRET npm start
+   cd frontend/
+   npm start
    ```
-2. Start the front end
 
-  In a new terminal session...
+2. Start the backend server
 
-  ```
-  ; cd frontend
-  ; npm start
-  ```
+   ```
+   cd api/
+   JWT_SECRET=SUPER_SECRET npm start
+   ```
 
-You should now be able to open your browser and go to `http://localhost:3000/signup` to create a new user.
+3. Browse to [http://localhost:3000](http://localhost:3000)
 
-Then, after signing up, you should be able to log in by going to `http://localhost:3000/login`.
+### Test
 
-After logging in, you won't see much but you can create posts using PostMan and they should then show up in the browser if you refresh the page.
+- Note the use of an environment variable for the JWT secret
 
-### Testing
-
-
-#### The Backend (API)
-
-**Note the use of an environment variable for the JWT secret**
-
-  Start the server in test mode (so that it connects to the test DB)
+- Start the server in test mode (so that it connects to the test DB)
 
   ```
-  ; cd api
-  ; JWT_SECRET=SUPER_SECRET npm run start:test
+  cd api
+  JWT_SECRET=SUPER_SECRET npm run start:test
   ```
 
-  Then run the tests in a new terminal session
+
+- Run frontend tests
 
   ```
-  ; cd api
-  ; JWT_SECRET=SUPER_SECRET npm run test
+  cd frontend/
+  JWT_SECRET=SUPER_SECRET npm start
+  JWT_SECRET=SUPER_SECRET npm run test
   ```
 
-#### The frontend (React)
-
-**Note the use of an environment variable for the JWT secret**
-
-  Start the server in test mode (so that it connects to the test DB)
-
+- Run backend tests
   ```
-  ; cd api
-  ; JWT_SECRET=SUPER_SECRET npm run start:test
+  cd api/
+  JWT_SECRET=SUPER_SECRET npm run test
   ```
 
-  Then start the front end in a new terminal session
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-  ```
-  ; cd frontend
-  ; JWT_SECRET=SUPER_SECRET npm start
-  ```
+<!-- USAGE EXAMPLES -->
 
-  Then run the tests in a new terminal session
+## Usage
 
-  ```
-  ; cd frontend
-  ; JWT_SECRET=SUPER_SECRET npm run test
-  ```
+- Sign up an account
+  ![image](https://user-images.githubusercontent.com/89473016/231218822-c4230c74-5c84-4d70-87a0-f738f0f70f01.png)
 
-## MongoDB Connection Errors?
+- Make a post
+  ![image](https://user-images.githubusercontent.com/89473016/231219603-680e2f37-e653-4c66-a432-88e39534347f.png)
+  
+- Upload a photo
+![image](https://user-images.githubusercontent.com/89473016/231220307-d13eeefb-0440-466f-b070-4ffba0f083c7.png)
 
-Some people occasionally experience MongoDB connection errors when running the tests or trying to use the application. Here are some tips which might help resolve such issues.
+- Like a post
+  ![image](https://user-images.githubusercontent.com/89473016/231220106-2dcf0215-4cf3-458a-a639-411d713bc52f.png)
 
-- Check that MongoDB is installed using `mongo --version`
-- Check that it's running using `brew services list`
-
-If you have issues that are not resolved by these tips, please reach out to a coach and, once the issue is resolved, we can add a new tip!
+- Leave a comment
+  ![image](https://user-images.githubusercontent.com/89473016/231220596-d677768d-d616-41b8-a79d-e0e2839913fc.png)
 
 
-<!-- BEGIN GENERATED SECTION DO NOT EDIT -->
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
----
+<!-- ROADMAP -->
 
-**How was this resource?**  
-[😫](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😫) [😕](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😕) [😐](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😐) [🙂](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=🙂) [😀](https://airtable.com/shrUJ3t7KLMqVRFKR?prefill_Repository=makersacademy%2Facebook-mern-template&prefill_File=README.md&prefill_Sentiment=😀)  
-Click an emoji to tell us.
+## Future roadmap
 
-<!-- END GENERATED SECTION DO NOT EDIT -->
+- [ ] Deploy the site
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions make the open-source community a fantastic place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+If you have a suggestion to improve this, please fork the repo and create a pull request. You can also open an issue with the tag "enhancement".
+Remember to give the project a star! Thanks again!
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTACT -->
+
+## Contact
+
+- Anna Magnusson - [LinkedIn](https://www.linkedin.com/in/anna-magnusson-519658199/) 
+- Cassius Naylor - [LinkedIn](https://www.linkedin.com/in/cassius-naylor/) 
+- James Mcleish - [LinkedIn](https://www.linkedin.com/in/james-mcleish-049446217/) 
+- Luke Lai - [LinkedIn](https://www.linkedin.com/in/luke-lai-309a3522b/) 
+- Sameera Sood - [LinkedIn](https://www.linkedin.com/in/sameera-sood-b3051218/) 
+- Shamima Begum - [GitHub](https://github.com/Shamima14)
+
+Project Link: [**[acebook-fire](https://github.com/SimpleLuke/acebook-fire)**]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGMENTS -->
+
+## Acknowledgments
+
+- [Makers](https://makers.tech/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [TailwindUI](https://tailwindui.com/)
+- [Headless UI](https://headlessui.com/)
+- [Heroicons](https://heroicons.com/)
+- [Tailwind Cheat Sheet](https://nerdcave.com/tailwind-cheat-sheet)
+- [MDN Web Docs](https://developer.mozilla.org/)
+- [W3Schools](https://www.w3schools.com/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
